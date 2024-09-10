@@ -4,11 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.leekukju.simpleboard.post.db.PostEntity;
 import me.leekukju.simpleboard.post.model.PostRequest;
+import me.leekukju.simpleboard.post.model.PostViewRequest;
 import me.leekukju.simpleboard.post.service.PostService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,9 +20,29 @@ public class PostApiController {
     @PostMapping("")
     public PostEntity create(
             @Valid
-            @RequestBody
-            PostRequest postRequest
+            @RequestBody PostRequest postRequest
     ) {
         return postService.create(postRequest);
+    }
+
+    @PostMapping("/view")
+    public PostEntity view(
+            @Valid
+            @RequestBody PostViewRequest postViewRequest
+    ) {
+        return postService.view(postViewRequest);
+    }
+
+    @GetMapping("/all")
+    public List<PostEntity> list() {
+        return postService.all();
+    }
+
+    @PostMapping("/delete")
+    public void delete(
+            @Valid
+            @RequestBody PostViewRequest postViewRequest
+    ) {
+        postService.delete(postViewRequest);
     }
 }
