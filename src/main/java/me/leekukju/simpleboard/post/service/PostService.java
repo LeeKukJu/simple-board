@@ -5,6 +5,7 @@ import me.leekukju.simpleboard.post.db.PostEntity;
 import me.leekukju.simpleboard.post.db.PostRepository;
 import me.leekukju.simpleboard.post.model.PostRequest;
 import me.leekukju.simpleboard.post.model.PostViewRequest;
+import me.leekukju.simpleboard.reply.service.ReplyService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,8 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+
+    private final ReplyService replyService;
 
     public PostEntity create(
             PostRequest postRequest
@@ -40,6 +43,10 @@ public class PostService {
                         var format = "패스워드가 맞지 않습니다. %s vs %s";
                         throw new RuntimeException(String.format(format, it.getPassword(), postViewRequest.getPassword()));
                     }
+
+                    var replyList = replyService.findAllByPostId(it.getId());
+                    it.setReplyList(replyList);
+
                     return it;
                 }).orElseThrow(
                         () -> {
