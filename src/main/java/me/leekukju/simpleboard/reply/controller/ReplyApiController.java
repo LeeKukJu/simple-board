@@ -1,31 +1,27 @@
 package me.leekukju.simpleboard.reply.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import me.leekukju.simpleboard.crud.CRUDAbstractApiController;
 import me.leekukju.simpleboard.reply.db.ReplyEntity;
-import me.leekukju.simpleboard.reply.model.ReplyRequest;
-import me.leekukju.simpleboard.reply.service.ReplyService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import me.leekukju.simpleboard.reply.model.ReplyDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/reply")
 @RequiredArgsConstructor
-public class ReplyApiController {
+public class ReplyApiController extends CRUDAbstractApiController<ReplyDto, ReplyEntity> {
 
-    private final ReplyService replyService;
+//    private final ReplyService replyService;
+//
+//    @PostMapping("")
+//    public ReplyEntity create(
+//            @Valid
+//            @RequestBody ReplyRequest replyRequest
+//    ) {
+//        return replyService.create(replyRequest);
+//    }
 
-    @PostMapping("")
-    public ReplyEntity create(
-            @Valid
-            @RequestBody ReplyRequest replyRequest
-    ) {
-        return replyService.create(replyRequest);
-    }
 
 
 }
